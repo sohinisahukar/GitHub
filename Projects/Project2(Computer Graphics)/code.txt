@@ -1,0 +1,610 @@
+#include<GL/glut.h>
+
+#include<math.h>
+
+#include <stdio.h>
+
+#include<stdbool.h>
+
+float xw=0.0,yw=0.0;
+
+bool d1=true,d2=false;
+
+void bg()
+
+{
+ 
+glBegin(GL_POLYGON);
+
+ glColor3f(0.0,1.0,0.0);
+ 
+glVertex2f(0.0,0.0);
+ 
+glColor3f(0.0,0.0,0.5);
+ 
+glVertex2f(0.0,1000.0);
+
+ glColor3f(0.0,0.0,0.5);
+
+ glVertex2f(1000.0,1000.0);
+ 
+glColor3f(0.0,1.0,0.0);
+
+ glVertex2f(1000.0,0.0);
+
+ glEnd();
+
+}
+ 
+
+void drawCircle(int cx, int cy, int r)
+
+{
+   
+ float x,y;
+ 
+   glBegin(GL_POLYGON);
+ 
+   for (int theta=0; theta<360; theta+=1)
+   
+ {
+      
+  x = cx + r*cos(theta*(M_PI/180));
+   
+     y = cy + r*sin(theta*(M_PI/180));
+    
+    glVertex2f(x,y);
+  
+  }
+   
+ glEnd();
+
+}
+
+
+void wall()
+
+{
+  
+glBegin(GL_POLYGON);
+
+  glColor3f(0.8,0.3,0.0);
+
+  glVertex2i(650,150);
+
+  glVertex2i(650,650);
+
+  glVertex2i(850,600);
+ 
+ glVertex2i(850,100);
+
+  glEnd();
+
+  glBegin(GL_POLYGON);
+
+  glColor3f(0.8,0.2,0.0);
+
+  glVertex2i(650,650);
+
+  glVertex2i(670,660);
+ 
+ glVertex2i(870,610);
+ 
+ glVertex2i(850,600);
+
+  glEnd();
+ 
+ glBegin(GL_POLYGON);
+ 
+ glColor3f(0.8,0.2,0.0);
+ 
+ glVertex2i(850,600);
+
+  glVertex2i(870,610);
+ 
+ glVertex2i(870,110);
+
+  glVertex2i(850,100);
+ 
+ glEnd();
+
+}
+
+
+void broken()
+
+{
+  //piece 1
+
+  glBegin(GL_POLYGON);
+
+  glColor3f(0.8,0.2,0.0);
+
+  glVertex2i(550,275);
+
+  glVertex2i(550,325);
+ 
+ glVertex2i(600,400);
+
+  glVertex2i(625,350);
+ 
+ glEnd();
+
+  glBegin(GL_POLYGON);
+
+  glColor3f(0.8,0.3,0.0);
+ 
+ glVertex2i(600,400);
+ 
+
+ glVertex2i(625,350);
+ 
+ glVertex2i(675,350);
+ 
+ glEnd();
+  
+glBegin(GL_POLYGON);
+
+  glColor3f(0.8,0.1,0.0);
+
+  glVertex2i(550,275);
+ 
+ glVertex2i(625,350);
+ 
+ glVertex2i(675,350);
+  
+glVertex2i(600,250);
+ 
+ glEnd();
+ 
+ //piece 2
+ 
+ glBegin(GL_POLYGON);
+ 
+ glColor3f(0.8,0.3,0.0);
+ 
+ glVertex2i(550,475);
+
+  glVertex2i(550,525);
+
+  glVertex2i(625,425);
+
+  glVertex2i(600,425);
+
+  glEnd();
+ 
+ glBegin(GL_POLYGON);
+
+  glColor3f(0.8,0.2,0.0);
+ 
+ glVertex2i(550,525);
+ 
+ glVertex2i(600,550);
+ 
+ glVertex2i(650,450);
+
+  glVertex2i(625,425);
+ 
+ glEnd();
+  
+//piece 3
+  
+glBegin(GL_POLYGON);
+  
+glColor3f(0.8,0.3,0.0);
+ 
+ glVertex2i(700,400);
+ 
+ glVertex2i(675,450);
+ 
+ glVertex2i(725,475);
+
+  glVertex2i(750,450);
+
+  glEnd();
+ 
+ glBegin(GL_POLYGON);
+ 
+ glColor3f(0.8,0.2,0.0);
+ 
+ glVertex2i(750,450);
+ 
+ glVertex2i(725,475);
+ 
+ glVertex2i(850,475);
+ 
+ glVertex2i(875,450);
+ 
+ glEnd();
+ 
+ glBegin(GL_POLYGON);
+ 
+ glColor3f(0.8,0.1,0.0);
+ 
+ glVertex2i(700,400);
+ 
+ glVertex2i(750,450);
+ 
+ glVertex2i(875,450);
+ 
+ glVertex2i(850,400);
+ 
+ glEnd();
+ 
+ //piece 4
+ 
+ glBegin(GL_POLYGON);
+ 
+ glColor3f(0.8,0.3,0.0);
+ 
+ glVertex2i(700,300);
+ 
+ glVertex2i(725,350);
+ 
+ glVertex2i(825,275);
+ 
+ glVertex2i(800,250);
+ 
+ glEnd();
+ 
+ glBegin(GL_POLYGON);
+
+  glColor3f(0.8,0.2,0.0);
+ 
+ glVertex2i(725,350);
+ 
+ glVertex2i(775,350);
+
+  glVertex2i(850,275);
+
+  glVertex2i(825,275);
+  
+glEnd();
+ 
+ glBegin(GL_POLYGON);
+ 
+ glColor3f(0.8,0.1,0.0);
+ 
+ glVertex2i(800,250);
+ 
+ glVertex2i(825,275);
+ 
+ glVertex2i(850,275);
+ 
+ glVertex2i(850,250);
+  
+glEnd();
+
+}
+
+
+
+void createBird(int cx,int cy)
+
+{
+  glPushMatrix();
+ 
+ glTranslatef(xw,yw,0);
+ 
+ //main cirlce
+ 
+ glColor3f(0.8,0.0,0.0);
+ 
+ drawCircle(cx,cy,70);
+ 
+ //white circles for eyes
+ 
+ //left circle
+ 
+ glColor3f(1.0,1.0,1.0);
+ 
+ drawCircle(160,210,18);
+  
+//right circle
+ 
+ glColor3f(1.0,1.0,1.0);
+ 
+ drawCircle(190,210,18);
+ 
+ //black eyeballs
+ 
+ //left eyeball
+ 
+ glColor3f(0.0,0.0,0.0);
+ 
+ drawCircle(165,210,8);
+  
+//right eyeball
+ 
+ glColor3f(0.0,0.0,0.0);
+
+  drawCircle(195,210,8);
+ 
+ //eyebrows
+  
+//left eyebrow
+ 
+ glColor3f(0.0,0.0,0.0);
+ 
+ glBegin(GL_POLYGON);
+  
+glVertex2i(130,235);
+ 
+ glVertex2i(130,245);
+ 
+ glVertex2i(175,230);
+ 
+ glVertex2i(175,220);
+  
+glEnd(); 	
+ 
+ //right eyebrow
+ 
+ glBegin(GL_POLYGON);
+ 
+ glVertex2i(175,220);
+ 
+ glVertex2i(175,230);
+ 
+ glVertex2i(205,245);
+ 
+ glVertex2i(205,235);
+ 
+ glEnd(); 
+
+  //beak
+ 
+ //top triangle
+ 
+ glColor3f(1.0,1.0,0.0);
+	
+  glBegin(GL_POLYGON);
+ 
+ glVertex2i(140,170);
+ 
+ glVertex2i(175,195);
+ 
+ glVertex2i(220,170);
+ 
+ glEnd(); 
+ 
+ //bottom triangle
+ 
+ glColor3f(1.0,0.8,0.0);
+ 
+ glBegin(GL_POLYGON);
+ 
+ glVertex2i(140,170);
+ 
+ glVertex2i(175,145);
+ 
+ glVertex2i(205,170);
+ 
+ glEnd(); 	
+ 
+ 
+  //tail
+  
+//middle tail
+  
+glColor3f(0.0,0.0,0.0);
+ 
+ glBegin(GL_POLYGON);
+ 
+ glVertex2i(60,190);
+  
+glVertex2i(60,215);
+ 
+ glVertex2i(90,205);
+ 
+ glVertex2i(90,190);
+ 
+ glEnd(); 
+ 
+ //upper tail
+ 
+ glBegin(GL_POLYGON);
+ 
+ glVertex2i(70,212);
+  
+glVertex2i(70,225);
+ 
+ glVertex2i(90,215);
+ 
+ glVertex2i(90,205);
+ 
+ glEnd();  
+ 
+ //lower tail
+ 
+ glBegin(GL_POLYGON);
+ 
+ glVertex2i(75,175);
+ 
+ glVertex2i(70,190);
+ 
+ glVertex2i(90,190);
+ 
+ glVertex2i(90,185);
+ 
+ glEnd(); 
+
+  //head feather
+ 
+ //left feather 
+
+  glBegin(GL_POLYGON);
+
+  glVertex2i(140,265);
+  
+glVertex2i(130,290);
+ 
+ glVertex2i(150,290);
+ 
+ glVertex2i(150,265);
+ 
+ glEnd(); 
+ 
+ //right feather
+ 
+ glBegin(GL_POLYGON);
+ 
+ glVertex2i(150,265);
+ 
+ glVertex2i(150,285);
+
+  glVertex2i(165,285);
+ 
+ glVertex2i(160,265);
+ 
+ glEnd();
+ 
+ glPopMatrix();
+ 
+}
+
+
+void update()
+
+{
+    
+ d1=false;
+    
+ d2=true;
+ 
+}
+
+
+static void motion(int key,int x,int y)
+
+{
+
+
+	//printf("%f %f\n", xw, yw);
+ 
+ switch(key)
+  
+{
+    case GLUT_KEY_RIGHT:
+    
+ if(xw==550 && yw <= 530 && yw >= -220)
+     
+ update(); 
+    
+ else 
+    
+  xw+=22;
+  
+    // yw+=14;
+  
+    break;
+  
+  case GLUT_KEY_LEFT:
+  
+   if(xw==550 && yw <= 530 && yw >= -220) 
+ 
+     update();
+   
+  else
+     
+ xw-=22;
+      
+//yw-=14;
+
+     
+ break;
+   
+ case GLUT_KEY_UP:
+  
+   if((yw>=150 || yw<=650)&&(xw==550)) 
+  
+    update();
+    
+ else
+    
+  yw+=14;
+  
+    break;
+    
+case GLUT_KEY_DOWN:
+ 
+    if((yw>=150 || yw<=650)&&(xw==550))
+ 
+      update();
+    
+ else
+     
+ yw-=14;
+      
+break;
+  
+}
+ 
+ glutPostRedisplay();
+
+}
+
+
+void display()
+
+{   
+    glClear(GL_COLOR_BUFFER_BIT);
+ 
+   bg();
+
+   
+ if(d1)
+  
+   wall();
+ 
+    createBird(150,200);
+
+    if(d2)
+    
+ broken(); 
+
+ 
+  glFlush();
+
+}
+
+
+void init()
+
+{
+ glClearColor(1,1,1,1);
+
+ glMatrixMode(GL_PROJECTION);
+ 
+glLoadIdentity();
+
+ gluOrtho2D(0,1000,0,1000);
+
+}
+
+
+void main(int argc,char ** argv)
+
+{
+
+ glutInit(&argc,argv);
+
+ glutInitDisplayMode(GLUT_SINGLE);
+
+ glutInitWindowSize(1000,1000);
+
+ glutInitWindowPosition(100,100);
+
+ glutCreateWindow("Angry Birds");
+
+ glutDisplayFunc(display);
+
+ glutSpecialFunc(motion);
+
+// glutReshapeFunc();
+
+ init();
+
+ glutMainLoop();
+
+}
