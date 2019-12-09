@@ -1,0 +1,90 @@
+import cv2
+import tkinter
+import PIL.Image, PIL.ImageTk
+import he as he
+import numpy as np
+
+
+window = tkinter.Tk()
+window.title("176_039")
+window.geometry("1000x1000")
+
+label = tkinter.Label(window, text = "HISTOGRAM\nEQUILIZATION").pack()
+label = tkinter.Label(window, text="\n\nDIgital Image Processing MiniProject\nBy: SOHINI and GEETHA").pack()
+label = tkinter.Label(window, text = "\n\nImage Before Histogram Equilization:").pack()
+
+img = cv2.imread("apple.jpg", 0)
+height, width = img.shape
+
+canvas = tkinter.Canvas(window, width=width, height=height)
+canvas.pack()
+
+photo = PIL.ImageTk.PhotoImage(image=PIL.Image.fromarray(img))
+canvas.create_image(0, 0, image=photo, anchor=tkinter.NW)
+
+def he():
+    #print(1)
+    global img
+    a = np.zeros((256,), dtype=np.float16)
+    b = np.zeros((256,), dtype=np.float16)
+
+    #print(2)
+
+    ht, wd = img.shape
+
+    # finding histogram
+    for i in range(ht):
+        for j in range(wd):
+            g = img[i, j]
+            a[g] = a[g] + 1
+
+    # print(a)
+    #print(3)
+    # performing histogram equalization
+    tmp = 1.0 / (ht * wd)
+
+    for i in range(256):
+        for j in range(i + 1):
+            b[i] += a[j] * tmp
+        b[i] = round(b[i] * 255)
+
+    # b now contains the equalized histogram
+    b = b.astype(np.uint8)
+    # print(b)
+    #print(4)
+    # Re-map values from equalized histogram into the image
+    for i in range(ht):
+        for j in range(wd):
+            g = img[i, j]
+            img[i, j] = b[g]
+
+    #print(5)
+    cv2.imwrite("C:/Users/User/Desktop/pyth/capple.jpg",img)
+    #print(6)
+
+def btnclk():
+    #global img
+    #global window
+    global photo
+    he()
+    #print(7)
+    img1 = cv2.imread("capple.jpg", 0)
+    #print(8)
+
+    label = tkinter.Label(window, text="\n\nImage After Histogram Equilization:").pack()
+
+    height1, width1 = img1.shape
+
+    canvas = tkinter.Canvas(window, width=width1, height=height1)
+    canvas.pack()
+    #print(9)
+    photo = PIL.ImageTk.PhotoImage(image=PIL.Image.fromarray(img1))
+    canvas.create_image(0, 0, image=photo, anchor=tkinter.NW)
+    #print(10)
+
+btn = tkinter.Button(window, text="Perform Histogram Equilization", command=he)
+btn.config(command=btnclk)
+btn.pack()
+#print(11)
+
+window.mainloop()
