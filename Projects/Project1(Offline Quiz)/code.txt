@@ -1,0 +1,882 @@
+import java.awt.*;
+import java.sql.*;
+
+public class NewJFrame extends javax.swing.JFrame {
+
+    public NewJFrame() {
+        initComponents();
+        jButton1.setOpaque(false);
+        jButton2.setOpaque(false);
+    }
+
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    private void initComponents() {
+
+        oracleDriver1 = new oracle.jdbc.driver.OracleDriver();
+        jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(705, 375));
+        setSize(new java.awt.Dimension(1000, 1000));
+        getContentPane().setLayout(null);
+
+        jButton1.setBackground(new java.awt.Color(52, 23, 173));
+        jButton1.setFont(new java.awt.Font("Engravers MT", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(252, 252, 252));
+        jButton1.setText("Take Quiz");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(270, 120, 160, 33);
+
+        jLabel1.setFont(new java.awt.Font("Ravie", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(252, 252, 252));
+        jLabel1.setText("QUIZ");
+        jLabel1.setName("lala"); // NOI18N
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(290, 30, 134, 74);
+
+        jButton2.setBackground(new java.awt.Color(52, 23, 173));
+        jButton2.setFont(new java.awt.Font("Engravers MT", 1, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("View Leader Board");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2);
+        jButton2.setBounds(220, 200, 260, 48);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/bg2.png"))); //    NOI18N
+        jLabel2.setToolTipText("");
+        jLabel2.setMaximumSize(new java.awt.Dimension(705, 375));
+        jLabel2.setMinimumSize(new java.awt.Dimension(705, 375));
+        jLabel2.setPreferredSize(new java.awt.Dimension(705, 375));
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(10, 0, 670, 370);
+
+        pack();
+    }// </editor-fold>                        
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        Name1 n = new Name1();
+        n.setVisible(true);
+        dispose();
+    }                                        
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        Board b = new Board();
+        b.setVisible(true);
+        dispose();
+    }                                        
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new NewJFrame().setVisible(true);
+            }
+        });
+    }
+    // Variables declaration - do not modify                     
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private oracle.jdbc.driver.OracleDriver oracleDriver1;
+    // End of variables declaration                   
+}
+
+public class Name1 extends javax.swing.JFrame {
+
+    static String player;
+
+    public Name1() {
+        initComponents();
+    }
+
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    private void initComponents() {
+
+        jLabel1 = new javax.swing.JLabel();
+        user = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        Start = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(705, 375));
+        setMinimumSize(new java.awt.Dimension(705, 375));
+        setPreferredSize(new java.awt.Dimension(705, 375));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 204));
+        jLabel1.setText("Enter name : ");
+
+        String s=user.getText();
+        System.out.println(s);
+        user.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("PRESS ENTER");
+
+        Start.setFont(new java.awt.Font("Sylfaen", 0, 24)); // NOI18N
+        Start.setForeground(new java.awt.Color(0, 0, 204));
+        Start.setText("START THE QUIZ");
+        Start.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                StartActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(106, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(27, 27, 27)
+                        .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Start))
+                .addGap(232, 232, 232))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(313, 313, 313))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(63, 63, 63)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(41, 41, 41)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
+                .addComponent(Start)
+                .addGap(84, 84, 84))
+        );
+
+        pack();
+    }// </editor-fold>                        
+
+    private void userActionPerformed(java.awt.event.ActionEvent evt) {                                     
+        player = user.getText();
+        System.out.print(player);
+
+        //System.out.println(player);
+    }                                    
+
+    private void StartActionPerformed(java.awt.event.ActionEvent evt) {                                      
+        NewJFrame1 jf = new NewJFrame1();
+        jf.setVisible(true);
+        dispose();
+    }                                     
+    public static void main(String args[]) 
+    {
+        java.awt.EventQueue.invokeLater(new Runnable() 
+        {
+            public void run() 
+            {
+                new Name1().setVisible(true);
+            }
+        });
+    }
+    // Variables declaration - do not modify                     
+    private javax.swing.JButton Start;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private transient javax.swing.JTextField user;
+    // End of variables declaration                   
+}
+
+import java.util.*;
+import java.sql.*;
+import javax.swing.JTextArea;
+
+public class NewJFrame1 extends javax.swing.JFrame {
+
+    static int correct = 0, count = 0;
+
+    public NewJFrame1() {
+        initComponents();
+        JB1.setOpaque(false);
+        JB2.setOpaque(false);
+        JB3.setOpaque(false);
+        JB4.setOpaque(false);
+    }
+    @SuppressWarnings("unchecked")
+    Random r = new Random();
+    int no = r.nextInt(20) + 1;
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    private void initComponents() {
+
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        JB1 = new javax.swing.JButton();
+        JB4 = new javax.swing.JButton();
+        JB2 = new javax.swing.JButton();
+        JB3 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1000, 375));
+        setMinimumSize(new java.awt.Dimension(1000, 375));
+        setPreferredSize(new java.awt.Dimension(705, 375));
+
+        jLabel1.setText("Q.");
+
+        String Q=null;
+        try
+        {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","sohini","sohini");
+            String q="select * from question";
+            Statement st=con.createStatement();
+            ResultSet rs=st.executeQuery(q);
+            //System.out.println(no);
+            for(int i=1;i<=no;i++)
+            {
+                if(rs.next())
+                {
+                    Q=rs.getString(2);
+                }
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+        jLabel2.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(153, 0, 0));
+        jLabel2.setText(Q);
+
+        String op1=null;
+        try
+        {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","sohini","sohini");
+            String q="select * from answeroption";
+            Statement st=con.createStatement();
+            ResultSet rs=st.executeQuery(q);
+            for(int i=1;i<=no;i++)
+            {
+                if(rs.next())
+                {
+                    op1=rs.getString(2);
+                }
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+        JB1.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        JB1.setForeground(new java.awt.Color(153, 0, 0));
+        JB1.setText(op1);
+        JB1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JB1ActionPerformed(evt);
+            }
+        });
+
+        String op4=null;
+        try
+        {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","sohini","sohini");
+            String q="select * from answeroption";
+            Statement st=con.createStatement();
+            ResultSet rs=st.executeQuery(q);
+            for(int i=1;i<=no;i++)
+            {
+                if(rs.next())
+                {
+                    op4=rs.getString(5);
+                }
+            }
+        }
+        catch(ClassNotFoundException e)
+        {
+            System.out.println(e);
+        }
+        catch(SQLException se)
+        {
+            System.out.println(se);
+        }
+        JB4.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        JB4.setForeground(new java.awt.Color(153, 0, 0));
+        JB4.setText(op4);
+        JB4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JB4ActionPerformed(evt);
+            }
+        });
+
+        String op2=null;
+        try
+        {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","sohini","sohini");
+            String q="select * from answeroption";
+            Statement st=con.createStatement();
+            ResultSet rs=st.executeQuery(q);
+            for(int i=1;i<=no;i++)
+            {
+                if(rs.next())
+                {
+                    op2=rs.getString(3);
+                }
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+        JB2.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        JB2.setForeground(new java.awt.Color(153, 0, 0));
+        JB2.setText(op2);
+        JB2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JB2ActionPerformed(evt);
+            }
+        });
+
+        String op3=null;
+        try
+        {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","sohini","sohini");
+            String q="select * from answeroption";
+            Statement st=con.createStatement();
+            ResultSet rs=st.executeQuery(q);
+            for(int i=1;i<=no;i++)
+            {
+                if(rs.next())
+                {
+                    op3=rs.getString(4);
+                }
+            }
+        }
+        catch(ClassNotFoundException e)
+        {
+            System.out.println(e);
+        }
+        catch(SQLException se)
+        {
+            System.out.println(se);
+        }
+        JB3.setFont(new java.awt.Font("Trebuchet MS", 1, 18)); // NOI18N
+        JB3.setForeground(new java.awt.Color(153, 0, 0));
+        JB3.setText(op3);
+        JB3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JB3ActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("D.");
+
+        jLabel4.setText("C.");
+
+        jLabel5.setText("B.");
+
+        jLabel6.setText("A.");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addComponent(JB3))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(18, 18, 18)
+                                .addComponent(JB1)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(JB4)
+                            .addComponent(JB2))
+                        .addGap(202, 202, 202))))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(74, 74, 74)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JB1)
+                    .addComponent(JB2)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(74, 74, 74)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JB3)
+                    .addComponent(JB4)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3))
+                .addContainerGap(73, Short.MAX_VALUE))
+        );
+
+        jLabel1.getAccessibleContext().setAccessibleName(getName());
+
+        pack();
+    }// </editor-fold>                        
+    String key;
+
+    public void fetch() {
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "sohini", "sohini");
+            String a = "select * from answerkey";
+            Statement st = con.createStatement();
+            ResultSet rs1 = st.executeQuery(a);
+            for (int i = 1; i <= no; i++) {
+                if (rs1.next()) {
+                    key = rs1.getString(2);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    Correct c = new Correct();
+    Wrong w = new Wrong();
+    String ans = null;
+    private void JB1ActionPerformed(java.awt.event.ActionEvent evt) {                                    
+        fetch();
+        //System.out.println("Key = "+key);
+        //System.out.println("count="+count);
+        ans = "a";
+        //System.out.println("Ans = "+ans);
+        if (ans.equals(key)) {
+            correct++;
+            count++;
+            c.setVisible(true);
+            dispose();
+        } else {
+            count++;
+            w.setVisible(true);
+            dispose();
+        }
+    }                                   
+    private void JB4ActionPerformed(java.awt.event.ActionEvent evt) {                                    
+        fetch();
+        //System.out.println(key);
+        ans = "d";
+        //System.out.println(ans);
+        if (ans.equals(key)) {
+            count++;
+            correct++;
+            c.setVisible(true);
+            dispose();
+        } else {
+            count++;
+            w.setVisible(true);
+            dispose();
+        }
+    }                                   
+    private void JB2ActionPerformed(java.awt.event.ActionEvent evt) {                                    
+        fetch();
+        //System.out.println(key);
+        ans = "b";
+        //System.out.println(ans);
+        if (ans.equals(key)) {
+            correct++;
+            count++;
+            c.setVisible(true);
+            dispose();
+        } else {
+            count++;
+            w.setVisible(true);
+            dispose();
+        }
+    }                                   
+    private void JB3ActionPerformed(java.awt.event.ActionEvent evt) {                                    
+        fetch();
+        //System.out.println(key);
+        ans = "c";
+        //System.out.println(ans);
+        if (ans.equals(key)) {
+            correct++;
+            count++;
+            c.setVisible(true);
+            dispose();
+        } else {
+            count++;
+            //System.out.println("count = "+count);
+            w.setVisible(true);
+            dispose();
+        }
+    }                                   
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new NewJFrame1().setVisible(true);
+            }
+        });
+    }
+    // Variables declaration - do not modify                     
+    private transient javax.swing.JButton JB1;
+    private transient javax.swing.JButton JB2;
+    private transient javax.swing.JButton JB3;
+    private transient javax.swing.JButton JB4;
+    private javax.swing.JLabel jLabel1;
+    private transient javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    // End of variables declaration                   
+}
+
+public class Wrong extends javax.swing.JFrame {
+
+    public Wrong() {
+        initComponents();
+    }
+
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    private void initComponents() {
+
+        jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(705, 375));
+        setMinimumSize(new java.awt.Dimension(705, 375));
+        setPreferredSize(new java.awt.Dimension(705, 375));
+
+        jButton1.setText("Next");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Snap ITC", 0, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel1.setText("WRONG");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(357, 357, 357))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(224, 224, 224)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(278, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(91, 91, 91)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(52, 52, 52))
+        );
+
+        pack();
+    }// </editor-fold>                        
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        if (NewJFrame1.count < 5) {
+            NewJFrame1 j = new NewJFrame1();
+            j.setVisible(true);
+            dispose();
+        } else {
+            Board b = new Board();
+            b.setVisible(true);
+            dispose();
+        }
+    }                                        
+    public static void main(String args[]) 
+    {
+        java.awt.EventQueue.invokeLater(new Runnable() 
+        {
+            public void run() 
+            {
+                new Wrong().setVisible(true);
+            }
+        });
+    }
+    // Variables declaration - do not modify                     
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    // End of variables declaration                   
+}
+
+public class Correct extends javax.swing.JFrame {
+
+    public Correct() {
+        initComponents();
+    }
+
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    private void initComponents() {
+
+        jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(705, 375));
+        setMinimumSize(new java.awt.Dimension(705, 375));
+        setPreferredSize(new java.awt.Dimension(705, 375));
+
+        jButton1.setText("Next");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Viner Hand ITC", 0, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 255, 51));
+        jLabel1.setText("CORRECT");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(258, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(193, 193, 193))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(318, 318, 318))))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(104, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(97, 97, 97)
+                .addComponent(jButton1)
+                .addGap(66, 66, 66))
+        );
+
+        pack();
+    }// </editor-fold>                        
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        if (NewJFrame1.count < 5) {
+            Correct c;
+
+            NewJFrame1 j = new NewJFrame1();
+            j.setVisible(true);
+            dispose();
+        } else {
+            Board b = new Board();
+            b.setVisible(true);
+            dispose();
+        }
+    }                                        
+    public static void main(String args[]) 
+    {
+        java.awt.EventQueue.invokeLater(new Runnable() 
+        {
+            public void run() 
+            {
+                new Correct().setVisible(true);
+            }
+        });
+    }
+    // Variables declaration - do not modify                     
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    // End of variables declaration                   
+}
+
+//Frame 6
+
+
+import java.sql.*;
+import net.proteanit.sql.DbUtils;
+
+public class Board extends javax.swing.JFrame {
+
+    int size;
+
+    public Board() {
+        initComponents();
+        try {
+            //System.out.println("LEADER CORRECT = "+NewJFrame1.correct);
+            //System.out.println("LEADER NAME = "+Name1.player);
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "sohini", "sohini");
+            String q2 = "select count(*) from leaderb";
+            Statement st2 = con.createStatement();
+            ResultSet rs2 = st2.executeQuery(q2);
+            rs2.next();
+            size = rs2.getInt(1);
+            PreparedStatement pst = con.prepareStatement("insert into leaderb values(?,?)");
+            pst.setString(1, Name1.player);
+            pst.setInt(2, NewJFrame1.correct);
+            pst.execute();
+            Name1.player = " ";
+            NewJFrame1.correct = 0;
+        } catch (Exception e) {
+            System.out.println();
+        }
+        fetch();
+    }
+
+    public void fetch() {
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            Connection con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "sohini", "sohini");
+            String q = "select * from leaderb where name != ' ' order by points desc";
+            PreparedStatement pst1 = con.prepareStatement(q);
+            ResultSet rs = pst1.executeQuery();
+            jTable1.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    private void initComponents() {
+
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(705, 375));
+        setMinimumSize(new java.awt.Dimension(705, 375));
+        setPreferredSize(new java.awt.Dimension(705, 375));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "NAME", "POINTS"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        jButton1.setText("BACK");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(170, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(159, 159, 159))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(316, 316, 316))))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(22, 22, 22))
+        );
+
+        pack();
+    }// </editor-fold>                        
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        NewJFrame j = new NewJFrame();
+        j.setVisible(true);
+        dispose();
+    }                                        
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Board().setVisible(true);
+            }
+        });
+    }
+    // Variables declaration - do not modify                     
+    private javax.swing.JButton jButton1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    // End of variables declaration                   
+}
+
+
